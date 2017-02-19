@@ -9,6 +9,7 @@ app.config.from_object(__name__)
 
 @app.route('/')
 def home():
+  return 'home'
   return app.send_static_file('index.html')
 
 
@@ -26,4 +27,4 @@ def chinese2arabic(number):
     else:
       return str(arabic)
   except:
-    return ''
+    return 'Conversion failed'
