@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, request
-import convertors
+from . import convertors
 
 
 app = Flask(__name__)
