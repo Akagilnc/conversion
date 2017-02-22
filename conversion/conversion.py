@@ -2,6 +2,8 @@
 import os
 from flask import Flask, request
 from . import convertors
+from . import cros
+
 
 
 app = Flask(__name__)
@@ -14,6 +16,7 @@ def home():
 
 
 @app.route('/chinese2arabic/<number>')
+@cros.crossdomain(origin='*')
 def chinese2arabic(number):
   """
   Convert chinese numbers to arabic numbers, only integer supported.

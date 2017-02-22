@@ -56,6 +56,22 @@ def chinese2arabic(number, strict=False):
     return None
   return int(res)
 
+
+def arabic2chinese(number):
+  """
+  Convert arabic numbers to chinese numbers, for examples:
+  >>> chinese2arabic(42)
+  四十二
+  >>> chinese2arabic(520)
+  五百二十
+  >>> chinese2arabic(2017)
+  两千零一十七
+  >>> chinese2arabic(148001862)
+  一亿四千八百万零一千八百六十二
+  """
+  pass
+  
+
 def simplify2lower(number):
   """
   Convert uppercase chinese number to lowercase chinese number,
