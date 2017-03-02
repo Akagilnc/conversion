@@ -19,4 +19,4 @@ You can add query like `strict=true` to check input and `format=json` to get jso
 
 will return your ip address
 
-You can add query `format=jons` to get json result.
+You can add query `format=json` to get json result.
