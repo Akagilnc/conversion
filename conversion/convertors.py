@@ -2,7 +2,7 @@
 
 def chinese2arabic(number, strict=False):
   """
-  Convert chinese numbers to arabic numbers, both support tranditional 
+  Convert chinese numbers to arabic numbers, both support tranditional
   or simplified chinese numbers, for examples:
   >>> chinese2arabic('四十二')
   42
@@ -60,17 +60,17 @@ def chinese2arabic(number, strict=False):
 def arabic2chinese(number):
   """
   Convert arabic numbers to chinese numbers, for examples:
-  >>> chinese2arabic(42)
+  >>> arabic2chinese(42)
   四十二
-  >>> chinese2arabic(520)
+  >>> arabic2chinese(520)
   五百二十
-  >>> chinese2arabic(2017)
+  >>> arabic2chinese(2017)
   两千零一十七
-  >>> chinese2arabic(148001862)
+  >>> arabic2chinese(148001862)
   一亿四千八百万零一千八百六十二
   """
   pass
-  
+
 
 def simplify2lower(number):
   """
@@ -92,7 +92,7 @@ def simplify2lower(number):
 
 def simplify(number):
   """
-  Convert traditional chinese uppercase number 
+  Convert traditional chinese uppercase number
   to simplied chinese uppercase number,
   for examples:
   >>> simplify('貳')
