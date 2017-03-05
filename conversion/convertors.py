@@ -106,7 +106,7 @@ def chinese2arabic(number, strict=False):
     return int(res)
 
 
-def chinese2bank(number):
+def arabic2bank(number):
     """
     >>> print(chinese2bank(200.250))
     貳佰点貳伍圆
