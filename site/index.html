@@ -24,7 +24,10 @@
     </head>
     <body>
     	<div class="container">
-    		<div class="row ub ub-ac" style="margin: 25% 0;">
+    		<div class="row text-center">
+    			<h3></h3>
+    		</div>
+    		<div class="row ub ub-ac" style="margin: 15% 0;">
     			<div id="inputLan" class="col-lg-4">
 		    		<div class="dropdown">
 					    <button class="btn btn-default dropdown-toggle" type="button" id="dropdowninputLan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -40,10 +43,8 @@
 	    		<div id ="translator" class="col-lg-2 col-lg-offset-1">
 	    			<div class="row ub ub-pc">
     					<div class="circle ub ub-ac ub-pc">
-    						<div class="tranform">
-    							<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-    							<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-    						</div>
+							<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     					</div>
 	    			</div>
 	    			<div class="row">
@@ -67,15 +68,50 @@
     		$('.dropdown-menu>li>a').click(function(){
     			$(this).parent().parent().prev().text($(this).text());
     		})
-    		//获取输入值
+    		
+    		//IP
+    		$.get('https://api.whatiknowaboutyou.info/myip',function(data){
+    			$('h3').text('欢迎您' + data);
+    		})
+    		
+    		//转换为阿拉伯
     		$('#translateBtn').click(function(){
     			var startText = $('#inputText').val();
-	    		$.get('http://api.whatiknowaboutyou.info/chinese2arabic/' + startText,function(data){
+	    		$.get('https://api.whatiknowaboutyou.info/chinese2arabic/' + startText,function(data){
 	    			$('#outputText').val(data);
 	    		});	
     		})
+    		
     		//对调语言
-    		$('.tranform')
+    		var startText = $('#inputText').val();
+    		if(startText === ''){
+    			$('.circle').mouseenter(function(){
+    				$(this).css('background-color','#f0ad4e');
+    				$(this).children().css('color','white');
+    			}).mouseleave(function(){
+    				$(this).css('background-color','gainsboro');
+    				$(this).children().css('color','black');
+    			}).click(function(){
+    				var inputLanDrop = $('#inputLan>.dropdown');
+    				var outputLanDrop = $('#outputLan>.dropdown');
+    				$('#inputLan>.dropdown').remove();
+    				$('#inputLan').prepend(outputLanDrop);
+    				$('#outputLan>.dropdown').remove();
+    				$('#outputLan').prepend(inputLanDrop);
+    			});
+    		}
+    		
+    		//阿拉伯转换
+			$('#translateBtn').click(function(){
+				var startText = $('#inputText').val();
+				if(isNaN(startText)){
+					alert('请输入阿拉伯数字');
+				}else{
+					$.get('https://api.whatiknowaboutyou.info/arabic2chinese/' + startText,function(data){
+	    				$('#outputText').val(data);
+	    			});
+				};
+			})
     	</script>
     </body>
 </html>
