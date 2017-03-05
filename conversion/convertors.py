@@ -135,7 +135,7 @@ def arabic2chinese(number):
             rwan = convert4places(rwan)
             yis.insert(0, '万'.join([lwan, rwan]))
     res = '亿'.join(yis)
-    return res.lstrip('零') + float_part.lstrip("零")
+    return res.lstrip('零') + float_part.rstrip("零")
 
 
 def convert4places(number):
