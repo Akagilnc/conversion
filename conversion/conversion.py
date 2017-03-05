@@ -29,6 +29,8 @@ def chinese2arabic(number):
             # return "{'number': %d}" % int(arabic), 200
         else:
             return str(arabic), 200
+    except (RuntimeError, TypeError, NameError) as err:
+        print(format(err))
     except:
         return 'Conversion failed', 200
 
