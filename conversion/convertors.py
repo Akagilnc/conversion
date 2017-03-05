@@ -13,7 +13,7 @@ def chinese_float(input_num, input_strict):
         if float_part is None and input_strict:
             raise ValueError('Illegal input')
     res = ''
-    for digit in reversed(float_part):
+    for digit in float_part:
         temp = place_dict.get(digit, '');
         if temp is None or len(temp) == 0:
             if digit == '零':
