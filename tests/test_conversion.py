@@ -25,6 +25,9 @@ class ConversionTestCase(unittest.TestCase):
     assert b'148001862' in rv.data
     rv = self.app.get('/chinese2arabic/一亿四千八百万bad零一千八百六十二?strict=True')
     assert b'Conversion failed' in rv.data
+    rv = self.app.get('/chinese2arabic/两千零一十七点五零五')
+    assert b'2017.505' in rv.data
+
 
 if __name__=='__main__':
   unittest.main()
