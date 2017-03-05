@@ -33,6 +33,18 @@ def chinese2arabic(number):
         return 'Conversion failed', 200
 
 
+@app.route('/arabic2chinese/<number>')
+@cros.crossdomain(origin='*')
+def arabic2chinese(number):
+    """
+    Convert arabic numbers to chinese numbers
+    """
+    try:
+        chinese = convertors.arabic2chinese(number)
+        return chinese
+    except:
+        return 'Conversion failed', 200
+
 @app.route('/myip')
 @cros.crossdomain(origin='*')
 def getclientip():
