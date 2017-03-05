@@ -1,6 +1,81 @@
 <!DOCTYPE html>
-<head>
-</head>
-<body>
-    
-</body>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+		<title>数字转换器</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<style type="text/css">
+			.ub{
+				display: -webkit-box;
+			}
+			.ub-ac{
+				-webkit-box-align: center;
+			}
+			.ub-pc{
+				-webkit-box-pack: center;
+			}
+			.circle{
+				width: 3em;
+				height: 3em;
+				border-radius: 50%;
+				background-color: gainsboro;
+			}
+		</style>
+    </head>
+    <body>
+    	<div class="container">
+    		<div class="row ub ub-ac" style="margin: 25% 0;">
+    			<div id="inputLan" class="col-lg-4">
+		    		<div class="dropdown">
+					    <button class="btn btn-default dropdown-toggle" type="button" id="dropdowninputLan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    	中文字符<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu" aria-labelledby="dropdowninputLan">
+					        <li><a href="#">中文字符</a></li>
+						    <li><a href="#">罗马文字</a></li>
+					    </ul>
+					</div>
+		    		<input type="text" name="inputText" id="inputText" value="" placeholder="在此处输入文本" class="col-lg-12" style="height: 15em;"/>
+	    		</div>
+	    		<div id ="translator" class="col-lg-2 col-lg-offset-1">
+	    			<div class="row ub ub-pc">
+    					<div class="circle ub ub-ac ub-pc">
+    						<div class="tranform">
+    							<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+    							<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    						</div>
+    					</div>
+	    			</div>
+	    			<div class="row">
+	    				<botton class="btn btn-warning col-lg-12" id = "translateBtn">翻译</botton>
+	    			</div>
+	    		</div>
+	    		<div id="outputLan" class = "col-lg-4 col-lg-offset-1">
+		    		<div class="dropdown">
+					    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownoutputLan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    	阿拉伯数字
+					    </button>
+					</div>
+		    		<input type="text" name="outputText" id="outputText" value="" disabled class="col-lg-12" style="height: 15em;"/>
+	    		</div>
+    		</div>
+    	</div>
+    	<script src="js/jquery.min.js" type="text/javascript"></script>
+    	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+    	<script type="text/javascript">
+    		//下拉框选择
+    		$('.dropdown-menu>li>a').click(function(){
+    			$(this).parent().parent().prev().text($(this).text());
+    		})
+    		//获取输入值
+    		$('#translateBtn').click(function(){
+    			var startText = $('#inputText').val();
+	    		$.get('http://api.whatiknowaboutyou.info/chinese2arabic/' + startText,function(data){
+	    			$('#outputText').val(data);
+	    		});	
+    		})
+    		//对调语言
+    		$('.tranform')
+    	</script>
+    </body>
+</html>
