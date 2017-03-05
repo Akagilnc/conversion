@@ -4,6 +4,9 @@ place_dict_chn = {'一': '1', '二': '2', '两': '2', '三': '3', '四': '4',
               '五': '5', '六': '6', '七': '7', '八': '8', '九': '9', '零': '0'}
 place_dict_arb = {'1': '一', '2': '二', '3': '三', '4': '四', '5': '五',
                '6': '六', '7': '七', '8': '八', '9': '九', '0': '零'}
+place_dict_bank = {'一': '壹', '二': '貳', '三': '叁', '四': '肆', '五': '伍',
+               '六': '陆', '七': '柒', '八': '捌', '九': '玖', '零': '零', '十': '拾',
+                   '百': '佰', '千': '仟', '万': '万', '亿': '亿', '点': '点'}
 paddings = {'十': 1, '百': 2, '千': 3, '万': 4, '亿': 8}
 
 
@@ -101,6 +104,21 @@ def chinese2arabic(number, strict=False):
     if float_part is not None:
         return float(res + float_part)
     return int(res)
+
+
+def chinese2bank(number):
+    """
+    >>> print(chinese2bank(200.250))
+    貳佰点貳伍圆
+    >>> print(chinese2bank(100000000.12345))
+    壹亿点壹貳叁肆伍圆
+    """
+
+    number = arabic2chinese(number)
+    res = ''
+    for temp in number:
+        res += place_dict_bank.get(temp)
+    return res + '圆'
 
 
 def arabic2chinese(number):
