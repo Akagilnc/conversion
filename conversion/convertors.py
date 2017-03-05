@@ -6,6 +6,7 @@ paddings = {'十': 1, '百': 2, '千': 3, '万': 4, '亿': 8}
 
 
 def chinese_float(input_num, input_strict):
+    input_num = input_num.replace('.', '点')
     number_list = input_num.split('点')
     number = number_list[0]
     float_part = number_list[-1]
@@ -53,7 +54,7 @@ def chinese2arabic(number, strict=False):
     assert number and len(number) > 0, 'Illegal input'
     number = simplify2lower(simplify(number))
     float_part = None
-    if '点' in number:
+    if '点' in number or '.' in number:
         float_part, number = chinese_float(number, strict)
 
     number = number.replace('零', '')
