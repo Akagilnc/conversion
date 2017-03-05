@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-place_dict = {'一': '1', '二': '2', '两': '2', '三': '3', '四': '4',
-              '五': '5', '六': '6', '七': '7', '八': '8', '九': '9'}
+place_dict_chn = {'一': '1', '二': '2', '两': '2', '三': '3', '四': '4',
+              '五': '5', '六': '6', '七': '7', '八': '8', '九': '9', '零': '0'}
+place_dict_arb = {'1': '一', '2': '二', '3': '三', '4': '四', '5': '五',
+               '6': '六', '7': '七', '8': '八', '9': '九', '0': '零'}
 paddings = {'十': 1, '百': 2, '千': 3, '万': 4, '亿': 8}
 
 
@@ -15,19 +17,27 @@ def chinese_float(input_num, input_strict):
             raise ValueError('Illegal input')
     res = ''
     for digit in float_part:
-        temp = place_dict.get(digit, '');
+        temp = place_dict_chn.get(digit, None)
         if temp is None or len(temp) == 0:
-            if digit == '零':
-                temp = '0'
-            elif input_strict:
+            if input_strict:
                 raise ValueError('Illegal input')
         res += temp
 
     return '.' + res, number
 
 
+def arabic_float(input_num):
+    number_list = input_num.split('.')
+    if len(number_list) > 2:
+        raise ValueError('Illegal input')
+    number = number_list[0]
+    float_part = number_list[-1]
 
+    res = '点'
+    for digit in float_part:
+        res += place_dict_arb.get(digit,None)
 
+    return res, number
 
 
 def chinese2arabic(number, strict=False):
@@ -63,7 +73,7 @@ def chinese2arabic(number, strict=False):
     res = ''
     add_padding = 0
     for digit in reversed(number):
-        sim = place_dict.get(digit, '')
+        sim = place_dict_chn.get(digit, '')
         if not sim:
             padding = paddings.get(digit, '')
 
@@ -104,9 +114,15 @@ def arabic2chinese(number):
     二千零一十七
     >>> print(arabic2chinese(148001862))
     一亿四千八百万一千八百六十二
+    >>> print(arabic2chinese(10023.567890900))
+    一万零二十三点五六七八九零九
     """
     yis = []
     number = str(number)
+    float_part = ''
+    if '.' in number:
+        float_part, number = arabic_float(number)
+
     for i in range(len(number), 0, -8):
         yi = number[max(0, i - 8):i]
         yi = yi.zfill(8)
@@ -119,7 +135,7 @@ def arabic2chinese(number):
             rwan = convert4places(rwan)
             yis.insert(0, '万'.join([lwan, rwan]))
     res = '亿'.join(yis)
-    return res.lstrip('零')
+    return res.lstrip('零') + float_part.lstrip("零")
 
 
 def convert4places(number):
@@ -134,16 +150,16 @@ def convert4places(number):
     >>> print(convert4places(1))
     零一
     """
-    place_dicts = {'1': '一', '2': '二', '3': '三', '4': '四', '5': '五', '6': '六', '7': '七', '8': '八', '9': '九', '0': '零'}
+
     number = str(number)
     number = number.zfill(4)
     assert number
     last_place = number[-1]
     suffix = ''
     if last_place != '0':
-        suffix = place_dicts.get(last_place)
+        suffix = place_dict_arb.get(last_place)
     number = number[:-1]
-    number = convert_places('十百千', number[::-1], place_dicts) + suffix
+    number = convert_places('十百千', number[::-1], place_dict_arb) + suffix
     number = number.replace('零零零零', '零')
     number = number.replace('零零零', '零')
     number = number.replace('零零', '零')
